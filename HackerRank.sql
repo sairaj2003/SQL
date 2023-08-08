@@ -94,3 +94,83 @@ OR
 city NOT RLIKE"[aeiou]$";
 
 
+-------------------------------------------------------------------------------------------------------------------------------------
+
+9) Query the Name of any student in STUDENTS who scored higher than 75 Marks. Order your output by the last three characters of each name. If two or more students both have names ending in the same last three
+	characters (i.e.: Bobby, Robby, etc.), secondary sort them by ascending ID.
+
+	SELECT Name FROM STUDENTS
+	WHERE Marks > 75 
+	ORDER BY RIGHT(Name,3),ID;
+/*
+RDER BY RIGHT(Name, 3), ID: This orders the results first by the last three characters of the "Name" column 
+(using the RIGHT function to extract the rightmost characters), and then by the "ID" column in ascending order.
+*/
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+10) Write a query that prints a list of employee names (i.e.: the name attribute) from the Employee table in alphabetical order.
+	
+	SELECT name FROM employee 
+	ORDER BY name;
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+11) Write a query that prints a list of employee names (i.e.: the name attribute) for employees in Employee having a salary greater than 2000 per month who have been employees for less than  months. Sort your result by 
+	ascending employee_id.
+
+	SELECT name FROM employee 
+	WHERE salary >2000 
+	AND 
+	months < 10
+	ORDER BY employee_id;
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+12) Query the greatest value of the Northern Latitudes (LAT_N) from STATION that is less than . Truncate your answer to  decimal places.
+
+	SELECT ROUND(MAX(LAT_N), 4) 
+	FROM STATION
+	WHERE LAT_N < 137.2345;
+
+-------------------------------------------------------------------------------------------------------------------------------------
+13) Query the Western Longitude (LONG_W) for the largest Northern Latitude (LAT_N) in STATION that is less than 137.2345. Round your answer to  decimal places.
+	SELECT ROUND(LONG_W,4) FROM STATION
+	WHERE LAT_N < 137.2345
+	ORDER BY LAT_N DESC
+	LIMIT 1;
+
+-------------------------------------------------------------------------------------------------------------------------------------
+14) Query the smallest Northern Latitude (LAT_N) from STATION that is greater than 38.7780 . Round your answer to  decimal places.
+
+	SELECT ROUND(LAT_N,4) FROM station
+	WHERE LAT_N > 38.7780
+	ORDER BY LAT_N 
+	LIMIT 1;
+
+-------------------------------------------------------------------------------------------------------------------------------------
+15)Query the Western Longitude (LONG_W)where the smallest Northern Latitude (LAT_N) in STATION is greater than 38.7780 . Round your answer to  decimal places.
+
+	SELECT ROUND(LONG_W,4) FROM station 
+	WHERE LAT_N > 38.7780
+	ORDER BY LAT_N 
+	LIMIT 1;
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+16) Consider p1(a,b) and p2(c,d) to be two points on a 2D plane.
+
+ a happens to equal the minimum value in Northern Latitude (LAT_N in STATION).
+ b happens to equal the minimum value in Western Longitude (LONG_W in STATION).
+ c happens to equal the maximum value in Northern Latitude (LAT_N in STATION).
+ d happens to equal the maximum value in Western Longitude (LONG_W in STATION).
+Query the Manhattan Distance between points p1 and p2 and round it to a scale of 4 decimal places.
+
+
+	SELECT ROUND(ABS(c-a) + ABS(d-b),4)
+	FROM
+	(SELECT MIN(LAT_N) AS a, MIN(LONG_W) AS b, MAX(LAT_N) AS c ,MAX(LONG_W) AS d FROM station)
+	AS POINTS;
+
+
